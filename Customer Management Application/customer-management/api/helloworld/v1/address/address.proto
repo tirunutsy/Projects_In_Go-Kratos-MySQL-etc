@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package api.helloworld.v1.address ;
+import "google/api/annotations.proto";
+
+option go_package = "customer-management/api/helloworld/v1/address;address";
+option java_multiple_files = true;
+option java_package = "api.helloworld.v1.address";
+
+service Address {
+	rpc CreateAddress (CreateAddressRequest) returns (CreateAddressReply) {
+		option (google.api.http) = {
+			post: "/v1/address"
+			body: "*"
+		};
+	}
+	rpc UpdateAddress (UpdateAddressRequest) returns (UpdateAddressReply) {
+		option (google.api.http) = {
+			put: "/v1/address/{id}"
+			body: "*"
+		};
+	}
+	rpc DeleteAddress (DeleteAddressRequest) returns (DeleteAddressReply) {
+		option (google.api.http) = {
+			delete: "/v1/address/{id}"
+		};
+	}
+	rpc GetAddress (GetAddressRequest) returns (GetAddressReply) {
+		option (google.api.http) = {
+			get: "/v1/address/{id}"
+		};
+	}
+	rpc ListAddress (ListAddressRequest) returns (ListAddressReply) {
+		option (google.api.http) = {
+			get: "/v1/address/list"
+		};
+	}
+}
+
+message AddressData {
+	uint32 id = 1;
+	string address = 2;
+	string pincode = 3;
+	string type = 4; // e.g. permanant, temporary
+	string created_at = 5;
+	string updated_at = 6;
+}
+
+message CreateAddressRequest {
+	string address = 1;
+	string pincode = 2;
+	string type = 3; // e.g. permanant, temporary
+}
+message CreateAddressReply {
+	uint32 id = 1;
+	string address = 2;
+	string pincode = 3;
+	string type = 4;
+}
+
+message UpdateAddressRequest {
+	uint32 id = 1;
+	string address = 2;
+	string pincode = 3;
+	string type = 4; // e.g. permanant, temporary
+}
+message UpdateAddressReply {
+	uint32 id = 1;
+	string address = 2;
+	string pincode = 3;
+	string type = 4; // e.g. permanant, temporary
+}
+
+message DeleteAddressRequest {
+	uint32 id = 1;
+}
+message DeleteAddressReply {
+	string message = 1;
+}
+
+message GetAddressRequest {
+	uint32 id = 1;
+}
+message GetAddressReply {
+	uint32 id = 1;
+	string address = 2;
+	string pincode = 3;
+	string type = 4; // e.g. permanant, temporary
+}
+
+message ListAddressRequest {
+
+}
+
+message ListAddressReply {
+	repeated AddressData address = 1;
+}
+
+

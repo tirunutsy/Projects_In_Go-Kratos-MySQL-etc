@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package api.helloworld.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "customer-management/api/helloworld/v1/phone;phone";
+option java_multiple_files = true;
+option java_package = "api.helloworld.v1.phone";
+
+service PhoneService {
+	rpc CreatePhone (CreatePhoneRequest) returns (CreatePhoneReply) {
+		option (google.api.http) = {
+			post: "/v1/phone"
+			body: "*"
+		};
+	}
+	rpc UpdatePhone (UpdatePhoneRequest) returns (UpdatePhoneReply) {
+		option (google.api.http) = {
+			put: "/v1/phone/{id}"
+			body: "*"
+		};
+	}
+	rpc DeletePhone (DeletePhoneRequest) returns (DeletePhoneReply) {
+		option (google.api.http) = {
+			delete: "/v1/phone/{id}"
+		};
+	}
+	rpc GetPhone (GetPhoneRequest) returns (GetPhoneReply) {
+		option (google.api.http) = {
+			get: "/v1/phone/{id}"
+		};
+	}
+	rpc ListPhone (ListPhoneRequest) returns (ListPhoneReply) {
+		option (google.api.http) = {
+			get: "/v1/phone/list"
+		};
+	}
+}
+
+message CreatePhoneRequest {
+	string phone = 1;
+	bool is_primary = 2;
+	string type = 3; // e.g. mobile, home, work
+}
+message CreatePhoneReply {
+	uint32 id = 1;
+	string phone = 2;
+	bool is_primary = 3;
+	string type = 4; // e.g. mobile, home, work
+	string created_at = 5;
+	string updated_at = 6;
+}
+
+message UpdatePhoneRequest {
+	uint32 id = 1;
+	string phone = 2;
+	bool is_primary = 3;
+	string type = 4; // e.g. mobile, home, work
+}
+message UpdatePhoneReply {
+	uint32 id = 1;
+	string phone = 2;
+	bool is_primary = 3;
+	string type = 4; // e.g. mobile, home, work
+	string created_at = 5;
+	string updated_at = 6;
+}
+
+message DeletePhoneRequest {
+	uint32 id = 1;
+	
+}
+message DeletePhoneReply {
+	string message = 1;
+}
+
+message GetPhoneRequest {
+	uint32 id = 1;
+}
+message GetPhoneReply {
+	uint32 id = 1;
+	string phone = 2;
+	bool is_primary = 3;
+	string type = 4; // e.g. mobile, home, work
+	string created_at = 5;
+	string updated_at = 6;
+}
+
+message ListPhoneRequest {
+	uint32 page = 1;
+}
+message ListPhoneReply {
+	repeated PhoneList listphones = 1;
+	uint32 total = 2;
+}
+
+message PhoneList {
+	uint32 id = 1;
+	string phone = 2;
+	bool is_primary = 3;
+	string type = 4; // e.g. mobile, home, work
+	string created_at = 5;
+	string updated_at = 6;
+}
+

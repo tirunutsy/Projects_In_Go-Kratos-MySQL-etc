@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+package api.helloworld.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "customer-management/api/helloworld/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.helloworld.v1";
+
+service Email {
+	rpc CreateEmail (CreateEmailRequest) returns (CreateEmailReply) {
+		option (google.api.http) = {
+			post: "/v1/email"
+			body: "*"
+		};
+	}
+	rpc UpdateEmail (UpdateEmailRequest) returns (UpdateEmailReply) {
+		option (google.api.http) = {
+			put: "/v1/email/{id}"
+			body: "*"
+		};
+	}
+	rpc DeleteEmail (DeleteEmailRequest) returns (DeleteEmailReply) {
+		option (google.api.http) = {
+			delete: "/v1/email/{id}"
+		};
+	}
+	rpc GetEmail (GetEmailRequest) returns (GetEmailReply) {
+		option (google.api.http) = {
+			get: "/v1/email/{id}"
+		};
+	}
+	rpc ListEmail (ListEmailRequest) returns (ListEmailReply) {
+		option (google.api.http) = {
+			get: "/v1/email/list"
+		};
+	}
+}
+
+message CreateEmailRequest {
+	string email = 1;
+	string type = 2; 
+	bool is_primary = 3;
+}
+message CreateEmailReply {
+	uint32 id = 1;
+	string email = 2;
+	string type = 3; 
+	bool is_primary = 4;
+	string created_at = 5;
+	string updated_at = 6;
+}
+
+message UpdateEmailRequest {
+	uint32 id = 1;
+	string email = 2;
+	string type = 3; 
+	bool is_primary = 4;
+	uint32 userid = 5;
+}
+message UpdateEmailReply {
+	uint32 id = 1;
+	string email = 2;
+	string type = 3; 
+	bool is_primary = 4;
+	uint32 userid = 5;
+	string created_at = 6;
+	string updated_at = 7;
+}
+
+message DeleteEmailRequest {
+	uint32 id = 1;
+}
+message DeleteEmailReply {
+	string message = 1;
+}
+
+message GetEmailRequest {
+	uint32 id = 1;
+	uint32 userid = 2;
+}
+message GetEmailReply {
+	uint32 id = 1;
+	string email = 2;
+	string type = 3; 
+	bool is_primary = 4;
+	uint32 userid = 5;
+	string created_at = 6;
+	string updated_at = 7;
+}
+
+message ListEmailRequest {
+	uint32 userid = 1;
+}
+
+message ListEmailReply {
+	repeated Emails emails = 1;
+}
+message Emails {
+	uint32 id = 1;
+	string email = 2;
+	string type = 3; 
+	bool is_primary = 4;
+	uint32 userid = 5;
+	string created_at = 6;
+	string updated_at = 7;
+}

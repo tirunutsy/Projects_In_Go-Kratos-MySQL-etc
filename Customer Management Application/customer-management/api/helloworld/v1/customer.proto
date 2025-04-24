@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+package api.helloworld.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "customer-service/api/helloworld/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.helloworld.v1";
+
+service Customer {
+	rpc CreateCustomer (CreateCustomerRequest) returns (CreateCustomerReply) {
+        option (google.api.http) = {
+            post: "/v1/customer"
+            body: "*"
+        };
+    }
+	rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerReply) {
+        option (google.api.http) = {
+            put: "/v1/customer/{id}"
+            body: "*"
+        };
+    }
+	rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerReply){
+        option (google.api.http) = {
+            delete: "/v1/customer/{id}"
+        };
+    }
+	rpc GetCustomer (GetCustomerRequest) returns (GetCustomerReply) {
+        option (google.api.http) = {
+            get: "/v1/customer/{id}"
+        };
+    }
+	rpc ListCustomer (ListCustomersRequest) returns (ListCustomersReply) {
+        option (google.api.http) = {
+            get: "/v1/customers"
+        };
+    }
+}
+
+message CustomerData {
+    uint32 id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    int32 age = 4;
+    string gender = 5;
+    repeated Emaildata emails = 6;
+    repeated Phones phones = 7;
+    repeated Address addresses = 8;
+    string created_at = 9;
+    string updated_at = 10;
+}
+
+message Emaildata {
+    uint32 id = 1;
+    string email = 2;
+    string type = 3; 
+    bool is_primary = 4;
+}
+message Phones {
+    uint32 id = 1;
+    string number = 2;
+    string type = 3; 
+    bool is_primary = 4;
+}
+message Address {
+    uint32 id = 1;
+    string address = 2;
+	string pincode = 3;  
+	string type = 4;
+}
+
+message CreateCustomerRequest {
+    string first_name = 1;
+    string last_name = 2;
+    int32 age = 3;
+    string gender = 4;
+    repeated Emaildata emails = 5;
+    repeated Phones phones = 6;
+    repeated Address addresses = 7;
+}
+
+message CreateCustomerReply {
+    CustomerData customer = 1;
+}
+
+message UpdateCustomerRequest {
+    uint32 id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    int32 age = 4;
+    string gender = 5;
+    repeated Emaildata emails = 6;
+    repeated Phones phones = 7;
+    repeated Address addresses = 8;
+}
+
+message UpdateCustomerReply {
+    CustomerData customer = 1;
+}
+
+
+message DeleteCustomerRequest {
+    uint32 id = 1;
+}
+
+message DeleteCustomerReply {
+    string message = 1; // Example field to indicate success or failure
+}
+
+message GetCustomerRequest {
+    uint32 id = 1;
+}
+message GetCustomerReply {
+    CustomerData customer = 1;
+}
+
+message ListCustomersRequest {
+}
+
+message ListCustomersReply {
+    repeated CustomerData customers = 1;
+}
+
+message getCU
